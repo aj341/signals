@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design Bees — 10-Day Free Trial Sequence</title>
+<style>
+  :root {
+    --honey: #F5B700;
+    --honey-dark: #D99A00;
+    --ink: #1A1A1A;
+    --ink-soft: #4A4A4A;
+    --paper: #FFFBF0;
+    --paper-alt: #FFF4D6;
+    --line: #E8D9A8;
+    --designed: #F5B700;
+    --personal: #2C3E50;
+    --linkedin: #0A66C2;
+    --sms: #25D366;
+    --branch: #8E44AD;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 100%; padding: 48px 32px 64px; }
+  header { max-width: 1200px; margin: 0 auto 40px; }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--honey-dark);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .subtitle {
+    font-size: 16px;
+    color: var(--ink-soft);
+    max-width: 720px;
+  }
+  .subtitle strong { color: var(--ink); }
+
+  .timeline-scroll {
+    overflow-x: auto;
+    padding: 32px 0 48px;
+    margin: 0 -32px;
+    padding-left: 32px;
+    padding-right: 32px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .timeline {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    min-width: min-content;
+    position: relative;
+    padding-top: 12px;
+  }
+  .step {
+    flex: 0 0 200px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .connector {
+    flex: 0 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding-top: 32px;
+  }
+  .connector::before {
+    content: "";
+    position: absolute;
+    top: 42px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--line);
+    border-top: 2px dashed var(--honey);
+    background: transparent;
+    border: none;
+    border-top: 2px dashed var(--honey-dark);
+  }
+  .connector .arrow {
+    position: relative;
+    color: var(--honey-dark);
+    font-size: 18px;
+    background: var(--paper);
+    padding: 0 2px;
+    line-height: 1;
+  }
+
+  .day-badge {
+    background: var(--ink);
+    color: #fff;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 13px;
+    line-height: 1;
+    flex-direction: column;
+    margin: 0 auto 16px;
+    border: 3px solid var(--honey);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .day-badge .lbl { font-size: 9px; letter-spacing: 1px; opacity: 0.7; margin-bottom: 2px; }
+  .day-badge .num { font-size: 18px; }
+
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px 16px 20px;
+    border: 1px solid var(--line);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    position: relative;
+    border-top: 4px solid var(--designed);
+  }
+  .card.type-designed { border-top-color: var(--designed); }
+  .card.type-personal { border-top-color: var(--personal); }
+  .card.type-linkedin { border-top-color: var(--linkedin); }
+  .card.type-sms { border-top-color: var(--sms); }
+  .card.type-branch { border-top-color: var(--branch); }
+
+  .channel-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    align-self: flex-start;
+  }
+  .type-designed .channel-tag { background: #FFF4D6; color: var(--honey-dark); }
+  .type-personal .channel-tag { background: #E8EEF3; color: var(--personal); }
+  .type-linkedin .channel-tag { background: #E1EDF8; color: var(--linkedin); }
+  .type-sms .channel-tag { background: #D7F5E3; color: #1B8B4D; }
+  .type-branch .channel-tag { background: #F0E2F8; color: var(--branch); }
+
+  .subject {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .purpose {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.45;
+    margin-bottom: 10px;
+    flex: 1;
+  }
+  .meta {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px dashed var(--line);
+  }
+  .meta-item {
+    font-size: 10px;
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+  .meta-item strong { color: var(--ink); font-weight: 700; }
+
+  .voice-ribbon {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 3px 7px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  .voice-brand { background: var(--honey); color: var(--ink); }
+  .voice-personal { background: var(--personal); color: #fff; }
+
+  .legend {
+    max-width: 1200px;
+    margin: 24px auto 0;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .legend h3 {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--honey-dark);
+    margin-bottom: 12px;
+  }
+  .legend-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .swatch { width: 14px; height: 14px; border-radius: 3px; flex: 0 0 14px; }
+  .sw-designed { background: var(--designed); }
+  .sw-personal { background: var(--personal); }
+  .sw-linkedin { background: var(--linkedin); }
+  .sw-sms { background: var(--sms); }
+  .sw-branch { background: var(--branch); }
+
+  .stats {
+    max-width: 1200px;
+    margin: 32px auto 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .stat {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .stat .num {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--honey-dark);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat .lbl {
+    font-size: 12px;
+    color: var(--ink-soft);
+    line-height: 1.35;
+  }
+
+  .footer-note {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding: 20px 24px;
+    background: var(--paper-alt);
+    border-radius: 12px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .footer-note strong { color: var(--ink); }
+
+  @media (max-width: 700px) {
+    .wrap { padding: 32px 20px 48px; }
+    h1 { font-size: 26px; }
+    .legend, .stats { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Design Bees &mdash; Trial Program</div>
+    <h1>The 10-Day Free Trial Sequence</h1>
+    <p class="subtitle">
+      <strong>Pipedrive-led</strong> with a designed Wix welcome on Day 0. <strong>Brand voice</strong> across the designed emails, <strong>AJ personal voice</strong> on the human touchpoints. Trial users select a plan at signup &mdash; the sequence defends against cancellation, not sells. Optional Loom, SMS and LinkedIn layered on where it fits.
+    </p>
+  </header>
+
+  <div class="timeline-scroll">
+    <div class="timeline">
+
+      <!-- DAY 0 -->
+      <div class="step">
+        <div class="day-badge"><span class="lbl">DAY</span><span class="num">0</span></div>
+        <div class="card type-designed">
+          <span class="voice-ribbon voice-brand">Brand</span>
+          <span class="channel-tag">Designed email &middot; Wix</span>
+          <div class="subject">Welcome to the hive &mdash; here's how it all works</div>
+          <div class="purpose">Branded first impression. Shows the process, the team, Filestage walk-through, and the single CTA: submit your first brief.</div>
+          <div class="meta">
+            <span class="meta-item"><strong>Engine:</strong> Wix</span>
+            <span class="meta-item"><strong>Trigger:</strong> Signup</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><span class="arrow">&rarr;</span></div>
+
+      <!-- DAY 1 -->
+      <div class="step">
+        <div class="day-badge"><span class="lbl">DAY</span><span class="num">1</span></div>
+        <div class="card type-personal">
+          <span class="voice-ribbon voice-personal">AJ</span>
+          <span class="channel-tag">Personal + Loom &middot; Pipedrive</span>
+          <div class="subject">Quick note from AJ &mdash; stuck on your first brief?</div>
+          <div class="purpose">Plain-text personal from AJ with an embedded Loom thumbnail. Offers help with the first brief. Reply-to goes straight to AJ's inbox.</div>
+          <div class="meta">
+            <span class="meta-item"><strong>Engine:</strong> Pipedrive</span>
+            <span class="meta-item"><strong>Trigger:</strong> +24h</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><span class="arrow">&rarr;</span></div>
+
+      <!-- DAY 2 -->
+      <div class="step">
+        <div class="day-badge"><span class="lbl">DAY</span><span class="num">2</span></div>
+        <div class="card type-branch">
+          <span class="voice-ribbon voice-brand">Brand</span>
+          <span class="channel-tag">Branched email &middot; Pipedrive</span>
+          <div class="subject">A: Your designer's on it &nbsp;/&nbsp; B: 3 brief templates to steal</div>
+          <div class="purpose">Pipedrive workflow branches on stage. Brief submitted &rarr; "what happens next" timeline. No brief &rarr; copy-and-paste brief templates.</div>
+          <div class="meta">
+            <span class="meta-item"><strong>Engine:</strong> Pipedrive</span>
+            <span class="meta-item"><strong>Trigger:</strong> Stage move</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><span class="arrow">&rarr;</span></div>
+
+      <!-- DAY 4 -->
+      <div class="step">
+        <div class="day-badge"><span class="lbl">DAY</span><span class="num">4</span></div>
+        <div class="card type-designed">
+          <span class="voice-ribbon voice-brand">Brand</span>
+          <span class="channel-tag">Designed email &middot; Pipedrive</span>
+          <div class="subject">See what a week with Design Bees actually looks like</div>
+          <div class="purpose">Designed case study / portfolio email. 1 short client story, 3&ndash;4 hero visuals of work delivered in a week. Proof-of-service moment.</div>
+          <div class="meta">
+            <span class="meta-item"><strong>Engine:</strong> Pipedrive</span>
+            <span class="meta-item"><strong>Trigger:</strong> +4 days</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><span class="arrow">&rarr;</span></div>
+
+      <!-- DAY 5 -->
+      <div class="step">
+        <div class="day-badge"><span class="lbl">DAY</span><span class="num">5</span></div>
+        <div class="card type-linkedin">
+          <span class="voice-ribbon voice-personal">AJ</span>
+          <span class="channel-tag">LinkedIn DM &middot; manual</span>
+          <div class="subject">Soft check-in (ICP-fit only)</div>
+          <div class="purpose">Manual LinkedIn DM from AJ for Scaling Founder / Agency ICPs only. Connection + low-pressure check-in. Not for every trial user.</div>
+          <div class="meta">
+            <span class="meta-item"><strong>Engine:</strong> Manual</span>
+            <span class="meta-item"><strong>Trigger:</strong> ICP flag</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><span class="arrow">&rarr;</span></div>
+
+      <!-- DAY 7 -->
+      <div class="step">
+        <div class="day-badge"><span class="lbl">DAY</span><span class="num">7</span></div>
+        <div class="card type-personal">
+          <span class="voice-ribbon voice-personal">AJ</span>
+          <span class="channel-tag">Personal email &middot; Pipedrive</span>
+          <div class="subject">Halfway there &mdash; here's what I'd do with the next 3 days</div>
+          <div class="purpose">Plain-text personal email from AJ. Advice tailored to whether they've submitted a brief or not. Calendly link for a 15-min chat. Reply-to goes to AJ.</div>
+          <div class="meta">
+            <span class="meta-item"><strong>Engine:</strong> Pipedrive</span>
+            <span class="meta-item"><strong>Trigger:</strong> +7 days</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><span class="arrow">&rarr;</span></div>
+
+      <!-- DAY 9 -->
+      <div class="step">
+        <div class="day-badge"><span class="lbl">DAY</span><span class="num">9</span></div>
+        <div class="card type-designed">
+          <span class="voice-ribbon voice-brand">Brand</span>
+          <span class="channel-tag">Designed email &middot; Pipedrive</span>
+          <div class="subject">Look at what we've made together in 10 days</div>
+          <div class="purpose">Designed value-recap email. Shows everything the designer has delivered for this user during the trial (pulled from Filestage). Paired with 1 strong client testimonial. Reinforces value right before their first real month kicks in.</div>
+          <div class="meta">
+            <span class="meta-item"><strong>Engine:</strong> Pipedrive</span>
+            <span class="meta-item"><strong>Trigger:</strong> +9 days</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><span class="arrow">&rarr;</span></div>
+
+      <!-- DAY 10 -->
+      <div class="step">
+        <div class="day-badge"><span class="lbl">DAY</span><span class="num">10</span></div>
+        <div class="card type-sms">
+          <span class="voice-ribbon voice-personal">AJ</span>
+          <span class="channel-tag">SMS &middot; optional</span>
+          <div class="subject">Quick heads-up &mdash; [Plan Name] starts today</div>
+          <div class="purpose">"Hey [name], AJ here &mdash; your [Plan] subscription kicks in today at $[amount]. No action needed. Want to tweak or pause? Reply and I'll sort it."</div>
+          <div class="meta">
+            <span class="meta-item"><strong>Engine:</strong> SMS tool</span>
+            <span class="meta-item"><strong>Trigger:</strong> Not cancelled</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector"><span class="arrow">&rarr;</span></div>
+
+      <!-- DAY 11 -->
+      <div class="step">
+        <div class="day-badge"><span class="lbl">DAY</span><span class="num">11</span></div>
+        <div class="card type-personal">
+          <span class="voice-ribbon voice-personal">AJ</span>
+          <span class="channel-tag">Personal email &middot; Pipedrive</span>
+          <div class="subject">Welcome to your first real month &nbsp;/&nbsp; No worries if it wasn't for you</div>
+          <div class="purpose">Branched: If converted (didn't cancel) &rarr; warm "welcome to the hive properly" note from AJ. If cancelled during trial &rarr; low-pressure feedback ask: what stopped you?</div>
+          <div class="meta">
+            <span class="meta-item"><strong>Engine:</strong> Pipedrive</span>
+            <span class="meta-item"><strong>Trigger:</strong> Stage (converted / cancelled)</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="num">7</div><div class="lbl">Emails across 10 days (vs. current 3 in 3 days)</div></div>
+    <div class="stat"><div class="num">3</div><div class="lbl">Personal AJ touchpoints (Day 1 Loom + Day 7 + Day 11)</div></div>
+    <div class="stat"><div class="num">4</div><div class="lbl">Designed HTML emails as portfolio proof</div></div>
+    <div class="stat"><div class="num">1</div><div class="lbl">Behaviour-triggered branch (Day 2)</div></div>
+  </div>
+
+  <div class="legend">
+    <div>
+      <h3>Channel &amp; style</h3>
+      <div class="legend-row"><span class="swatch sw-designed"></span> Designed HTML email &mdash; brand voice, portfolio piece</div>
+      <div class="legend-row"><span class="swatch sw-personal"></span> Personal plain-text &mdash; AJ, reply-to-AJ</div>
+      <div class="legend-row"><span class="swatch sw-branch"></span> Branched email &mdash; fires on Pipedrive stage move</div>
+      <div class="legend-row"><span class="swatch sw-linkedin"></span> LinkedIn DM &mdash; manual, ICP-fit only</div>
+      <div class="legend-row"><span class="swatch sw-sms"></span> SMS &mdash; optional Day-10 nudge</div>
+    </div>
+    <div>
+      <h3>Voice convention</h3>
+      <div class="legend-row"><span class="swatch sw-designed"></span> <strong style="color:var(--ink);">Brand ribbon</strong> &mdash; "we" voice from Design Bees</div>
+      <div class="legend-row"><span class="swatch sw-personal"></span> <strong style="color:var(--ink);">AJ ribbon</strong> &mdash; first-person, personal, reply-friendly</div>
+      <div class="legend-row" style="margin-top: 12px;">Designed &rarr; Personal &rarr; Designed &rarr; Personal rhythm is deliberate &mdash; the contrast is the premium signal.</div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <strong>How it runs:</strong> Trial users pick a plan at signup, so this is a reverse-trial &mdash; the sequence reassures and defends, not sells. Day 0 sends from Wix as a branded designed email (welcome + how it works + confirms their chosen plan). Every email from Day 1 onwards fires from Pipedrive, triggered by deal stage moves (Trial Started &rarr; Brief Submitted &rarr; First Design Delivered &rarr; Billing Tomorrow &rarr; Converted / Cancelled). Day 1 AJ personal email includes a short Loom recorded per trial; Day 7 and Day 11 are plain-text personal emails. LinkedIn DM on Day 5 is manual and ICP-fit only. SMS on Day 10 is a billing heads-up, not a sales nudge. Day 11 branches on whether they cancelled during trial.
+  </div>
+</div>
+</body>
+</html>
